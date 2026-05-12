@@ -1,0 +1,207 @@
+========= Sistema de Gestão Acadêmica =========
+
+\begin{itemize}
+\item
+  o sistema deve permitir à secretaria cadastrar cursos contendo código,
+  descrição e coordenador.
+\item
+  o sistema deve permitir à secretaria cadastrar disciplinas de cursos,
+  contendo código, descrição, carga horária, ementa, bibliografia e
+  pré-requisitos.
+\item
+  o sistema deve permitir à secretaria cadastrar alunos, contendo
+  matrícula, nome, endereço, telefone e curso para o qual foi aprovado.
+\item
+  o sistema deve permitir ao departamento de recursos humanos (RH)
+  cadastrar professores, contendo nome, endereço, telefone e titulação
+  máxima (graduação, especialização, mestrado, doutorado) e cursos que
+  esteja vinculado.
+\item
+  o sistema deve permitir à secretaria abrir turmas de disciplinas de
+  cursos, informando ano e semestre, dias da semana e horários de
+  realização.
+\item
+  o sistema deve permitir aos coordenadores de curso alocar professores
+  a determinadas turmas.
+\item
+  o sistema deve permitir à secretaria matricular alunos em turmas.
+\item
+  o sistema deve permitir aos professores lançar avaliações (duas notas
+  parciais, nota da prova final e frequência) dos alunos das turmas que
+  estejam sob sua responsabilidade.
+\item
+  o sistema deve permitir aos alunos consultar suas avaliações.
+\end{itemize}
+
+\begin{quote}
+• o sistema deve permitir à secretaria emitir diários de classe das
+turmas.
+\end{quote}
+
+\begin{itemize}
+\item
+  o sistema deve permitir à secretaria emitir históricos escolares dos
+  alunos.
+\item
+  o sistema deve efetuar o cálculo da aprovação de alunos em turmas,
+  sendo que, para ser aprovado, deve-se ter frequência mínima de 75\%.
+  Para aprovação, a média das notas deve ser maior ou igual a 6,0.
+\item
+  o sistema deve controlar a situação de um aluno, podendo estar
+  matriculado, trancado, formado ou evadido.
+\end{itemize}
+
+===========================================
+
+Atores: secretária, RH, Coordenador, Professor, Aluno
+
+Objetos: cursos, disciplinas, alunos, professores, turmas, avaliações,
+diários, histórico escolar, cálculo de aprovação
+
+Atributos: Curso: código, descrição, coordenador
+
+Disciplina: código, descrição, carga horária, ementa, bibliografia e
+pré-requisitos.
+
+Alunos: matrícula, nome, endereço, telefone e curso
+
+Professor: nome, endereço, telefone e titulação máxima (graduação,
+especialização, mestrado, doutorado) e cursos.
+
+Turmas: disciplinas, curso. Ano, semestre, dias da semana e horários.
+
+Avaliação: (duas notas parciais, nota da prova final e frequência),
+aluno
+
+Situação do Aluno: matriculado, trancado, formado ou evadido.
+
+==================================================================
+
+Verbos de Ação
+
+\begin{itemize}
+\item
+  (secretaria) cadastrar cursos
+\item
+  (secretaria) cadastrar disciplinas
+\item
+  (secretaria) cadastrar alunos
+\item
+  (RH) cadastrar professores
+\item
+  (secretaria) abrir turmas
+\item
+  (coordenador) alocar professores
+\item
+  (secretaria) matricular alunos
+\item
+  (professores) lançar avaliações
+\item
+  (alunos) consultar avaliações
+\item
+  (secretaria) emitir diários
+\item
+  (secretaria) emitir histórico escolar
+\item
+  (sistema) efetuar cálculo da aprovação
+\item
+  (sistema) controlar situação do aluno
+\end{itemize}
+
+==================================================================
+
+\documentclass{article}
+\usepackage{tikz-uml}
+
+\begin{document}
+
+\begin{tikzpicture}
+
+% Atores\documentclass{article}
+\usepackage{tikz-uml}
+
+\begin{document}
+
+\begin{tikzpicture}
+
+% Atores
+\umlactor[x=0,y=0]{Secretária}
+\umlactor[x=3,y=0]{RH}
+\umlactor[x=6,y=0]{Coordenador}
+\umlactor[x=9,y=0]{Professor}
+\umlactor[x=12,y=0]{Aluno}
+\umlactor[x=15,y=0]{Sistema}
+
+% Casos de Uso
+\umlusecase[x=2,y=3]{Cadastrar cursos}
+\umlusecase[x=5,y=3]{Cadastrar disciplinas}
+\umlusecase[x=8,y=3]{Cadastrar alunos}
+\umlusecase[x=11,y=3]{Cadastrar professores}
+\umlusecase[x=2,y=6]{Abrir turmas}
+\umlusecase[x=5,y=6]{Alocar professores}
+\umlusecase[x=8,y=6]{Matricular alunos}
+\umlusecase[x=11,y=6]{Lançar avaliações}
+\umlusecase[x=2,y=9]{Consultar avaliações}
+\umlusecase[x=5,y=9]{Emitir diários}
+\umlusecase[x=8,y=9]{Emitir histórico}
+\umlusecase[x=11,y=9]{Efetuar cálculo da aprovação}
+\umlusecase[x=14,y=9]{Controlar situação do aluno}
+
+% Associações
+\umlassoc{Secretária}{Cadastrar cursos}
+\umlassoc{Secretária}{Cadastrar disciplinas}
+\umlassoc{Secretária}{Cadastrar alunos}
+\umlassoc{RH}{Cadastrar professores}
+\umlassoc{Secretária}{Abrir turmas}
+\umlassoc{Coordenador}{Alocar professores}
+\umlassoc{Secretária}{Matricular alunos}
+\umlassoc{Professor}{Lançar avaliações}
+\umlassoc{Aluno}{Consultar avaliações}
+\umlassoc{Secretária}{Emitir diários}
+\umlassoc{Secretária}{Emitir histórico}
+\umlassoc{Sistema}{Efetuar cálculo da aprovação}
+\umlassoc{Sistema}{Controlar situação do aluno}
+
+\end{tikzpicture}
+
+\end{document}
+\umlactor[x=0,y=0]{Secretária}
+\umlactor[x=3,y=0]{RH}
+\umlactor[x=6,y=0]{Coordenador}
+\umlactor[x=9,y=0]{Professor}
+\umlactor[x=12,y=0]{Aluno}
+\umlactor[x=15,y=0]{Sistema}
+
+% Casos de Uso
+\umlusecase[x=2,y=3]{Cadastrar cursos}
+\umlusecase[x=5,y=3]{Cadastrar disciplinas}
+\umlusecase[x=8,y=3]{Cadastrar alunos}
+\umlusecase[x=11,y=3]{Cadastrar professores}
+\umlusecase[x=2,y=6]{Abrir turmas}
+\umlusecase[x=5,y=6]{Alocar professores}
+\umlusecase[x=8,y=6]{Matricular alunos}
+\umlusecase[x=11,y=6]{Lançar avaliações}
+\umlusecase[x=2,y=9]{Consultar avaliações}
+\umlusecase[x=5,y=9]{Emitir diários}
+\umlusecase[x=8,y=9]{Emitir histórico}
+\umlusecase[x=11,y=9]{Efetuar cálculo da aprovação}
+\umlusecase[x=14,y=9]{Controlar situação do aluno}
+
+% Associações
+\umlassoc{Secretária}{Cadastrar cursos}
+\umlassoc{Secretária}{Cadastrar disciplinas}
+\umlassoc{Secretária}{Cadastrar alunos}
+\umlassoc{RH}{Cadastrar professores}
+\umlassoc{Secretária}{Abrir turmas}
+\umlassoc{Coordenador}{Alocar professores}
+\umlassoc{Secretária}{Matricular alunos}
+\umlassoc{Professor}{Lançar avaliações}
+\umlassoc{Aluno}{Consultar avaliações}
+\umlassoc{Secretária}{Emitir diários}
+\umlassoc{Secretária}{Emitir histórico}
+\umlassoc{Sistema}{Efetuar cálculo da aprovação}
+\umlassoc{Sistema}{Controlar situação do aluno}
+
+\end{tikzpicture}
+
+\end{document}

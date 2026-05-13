@@ -1,0 +1,74 @@
+#Definir exceptions
+
+class TitulacaoInvalida(Exception):
+    pass
+
+class IdadeInvalida(Exception):
+    pass
+
+class CursoInvalido(Exception):
+    pass
+
+class IdadeMenorQuePermitida(Exception):
+    pass
+
+
+
+
+class Pessoa():
+    def __init__(self, nome, endereco, idade, cpf):
+        self.__nome = nome
+        self.__endereco = endereco
+        self.__idade = idade
+        self.__cpf = cpf
+    
+    @property
+    def nome(self):
+        return self.__nome
+    
+    @property
+    def endereco(self):
+        return self.__endereco
+    
+    @property
+    def idade(self):
+        return self.__idade
+    
+    @property
+    def cpf(self):
+        return self.__cpf
+    
+    def printDescricao(self):
+        print(f"Nome: {self.__nome}")
+        print(f"Endereço: {self.__endereco}")
+        print(f"Idade: {self.__idade}")
+        print(f"CPF: {self.__cpf}")
+
+class Professor(Pessoa):
+    def __init__(self, nome, endereco, idade, cpf, titulacao):
+        super().__init__(nome, endereco, idade, cpf)
+        self.__titulacao = titulacao
+    
+    @property
+    def titulacao(self):
+        return self.__titulacao
+    
+    def printDescricao(self):
+        super().printDescricao()
+        print(f"Titulação: {self.__titulacao}")
+
+class Aluno(Pessoa): 
+    def __init__(self, nome, endereco, idade, cpf, curso):
+        super().__init__(nome, endereco, idade, cpf)
+        self.__curso = curso
+
+    @property
+    def curso(self):
+        return self.__curso
+    
+    def printDescricao(self):
+        super().printDescricao()
+        print(f"Curso: {self.__curso}")
+
+if __name__ == "__main__":
+    cadastro = {}

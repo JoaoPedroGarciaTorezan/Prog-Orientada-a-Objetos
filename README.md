@@ -105,8 +105,9 @@ jupyter notebook Aula01.ipynb
 ├── Frações/                  # Projeto especial com frações
 ├── Documentos/               # Documentação adicional
 └── README.md                 # Este arquivo
-<!-- BLOCO:estrutura_FIM -->
 ```
+<!-- BLOCO:estrutura_FIM -->
+
 
 ## 💡 Dicas de Uso
 

@@ -2,7 +2,7 @@ name: 🤖 Update Profile
 
 on:
   schedule:
-    - cron: "0 0 * * *"  # todo dia à meia-noite UTC
+    - cron: "*/10 * * * *"  # todo dia à meia-noite UTC
   workflow_dispatch:
 
 concurrency:

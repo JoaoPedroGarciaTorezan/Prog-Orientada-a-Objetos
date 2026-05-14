@@ -86,6 +86,7 @@ jupyter notebook Aula01.ipynb
 - ✅ Agregação
 - ✅ Composição
 
+<!-- ESTRUTURA_INICIO -->
 ## 📁 Estrutura do Repositório
 
 ```

@@ -2,7 +2,7 @@ name: 🤖 Update Profile
 
 on:
   schedule:
-    - cron: "*/10 * * * *"
+    - cron: "0 0 * * *"  # todo dia à meia-noite UTC
   workflow_dispatch:
 
 concurrency:
@@ -19,31 +19,20 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
+        uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v5
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
-          node-version: 22
-          cache: "npm"
-
-      - name: Install deps
-        run: npm install
+          python-version: "3.11"
 
       - name: Run updater
-        run: node scripts/index.js
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/index.py
 
       - name: Commit and push
         run: |
-          git config user.name "RafaelaSommer"
-          git config user.email "camilaerafaelagoncalves@hotmail.com"
-
-          git add .
-
-          git commit --allow-empty -m "🤖 auto update $(date +'%d/%m %H:%M:%S')"
-
+          git config user.name "JoãoPedroGarciaTorezan"
+          git config user.email "jpgtorezan@gmail.com"
+          git add README.md
+          git diff --cached --quiet || git commit -m "🤖 auto update $(date +'%d/%m %H:%M:%S')"
           git push

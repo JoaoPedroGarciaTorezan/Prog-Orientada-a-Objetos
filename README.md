@@ -8,6 +8,7 @@ Este projeto demonstra os principais conceitos de Orientação a Objetos (OO) at
 
 ## 🎯 Conteúdo
 
+<!-- BLOCO:classes_conceitos_INICIO -->
 ### 📚 Classes e Conceitos
 A pasta `Classes/` contém exemplos práticos dos principais pilares da POO:
 
@@ -24,6 +25,7 @@ A pasta `Classes/` contém exemplos práticos dos principais pilares da POO:
 - **`Associações/Agreg/`** - Agregação e composição de objetos
   - `aula09.py` - Conceitos de associação
   - `FolhasDePagamento.py` - Exemplo prático com múltiplas classes
+<!--BLOCO:classes_conceitos_FIM -->
 
 ### 💼 Exercícios Práticos
 A pasta `Exercicios/` contém problemas para aplicar os conceitos aprendidos:
@@ -66,7 +68,7 @@ python Exercicios/Ex5-FolhasPagamento.py
 ```bash
 jupyter notebook Aula01.ipynb
 ```
-
+<!-- BLOCO:conceitos_cobertos_INICIO -->
 ## 📖 Conceitos Cobertos
 
 ### Conceitos Fundamentais
@@ -85,8 +87,9 @@ jupyter notebook Aula01.ipynb
 - ✅ Associação
 - ✅ Agregação
 - ✅ Composição
+<!-- BLOCO:conceitos_cobertos_FIM -->
 
-<!-- ESTRUTURA_INICIO -->
+<!-- BLOCO:estrutura_INICIO -->
 ## 📁 Estrutura do Repositório
 
 ```
@@ -102,7 +105,7 @@ jupyter notebook Aula01.ipynb
 ├── Frações/                  # Projeto especial com frações
 ├── Documentos/               # Documentação adicional
 └── README.md                 # Este arquivo
-<!-- ESTRUTURA_FIM -->
+<!-- BLOCO:estrutura_FIM -->
 ```
 
 ## 💡 Dicas de Uso

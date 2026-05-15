@@ -111,11 +111,11 @@ def substituir_bloco(conteudo, nome, novo_conteudo):
     bloco  = f"{inicio}\n{novo_conteudo}\n{fim}"
 
     if inicio in conteudo and fim in conteudo:
-        antes  = conteudo.split(inicio)[0]
-        depois = conteudo.split(fim)[1]
+        antes        = conteudo.split(inicio, 1)[0]   # tudo antes do marcador de início
+        resto        = conteudo.split(inicio, 1)[1]   # tudo depois do marcador de início
+        depois       = resto.split(fim, 1)[1]         # tudo depois do marcador de fim
         return antes + bloco + depois
     else:
-        # Se o marcador não existe, adiciona ao final
         return conteudo.rstrip() + f"\n\n{bloco}\n"
 
 # ─────────────────────────────────────────

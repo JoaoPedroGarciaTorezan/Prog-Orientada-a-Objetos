@@ -73,38 +73,80 @@ jupyter notebook Aula01.ipynb
 
 ### Conceitos Fundamentais
 - ✅ Classes e Objetos
-- ✅ Atributos privados (`__atributo`)
+- ✅ Atributos privados
 - ✅ Métodos de instância
 - ✅ Construtores (`__init__`)
 
 ### Pilares da POO
-- ✅ **Encapsulamento** - Proteção de dados com atributos privados
-- ✅ **Herança** - Reutilização de código através de hierarquias de classes
-- ✅ **Polimorfismo** - Múltiplas formas de um mesmo método
-- ✅ **Abstração** - Classes abstratas e métodos abstratos
+- ✅ Encapsulamento
+- ✅ Herança
+- ✅ Polimorfismo
+- ✅ Abstração
 
 ### Relacionamentos entre Objetos
-- ✅ Associação
-- ✅ Agregação
-- ✅ Composição
+- ✅ Associação / Agregação / Composição
+
+### Outros Tópicos
+- ✅ Exceções
+- ✅ Frações (projeto especial)
+- ✅ Jupyter Notebooks
 <!-- BLOCO:conceitos_cobertos_FIM -->
 
 <!-- BLOCO:estrutura_INICIO -->
 ## 📁 Estrutura do Repositório
 
 ```
-├── Aula01.ipynb              # Notebook Jupyter com aulas
-├── diagrama.tex              # Diagramas em LaTeX
-├── Classes/                  # Exemplos de conceitos OO
-│   ├── Motocicleta.py
-│   ├── Herança/
-│   ├── Polimorfismo/
-│   ├── Classe abstrata/
-│   └── Associações/
-├── Exercicios/               # Problemas práticos
-├── Frações/                  # Projeto especial com frações
-├── Documentos/               # Documentação adicional
-└── README.md                 # Este arquivo
+📄 Aula01.ipynb
+📁 Classes
+  📁 Associações
+    📁 Agreg
+      📄 FolhasDePagamento.py
+      📄 aula09.py
+  📁 Classe abstrata
+    📄 academico1.py
+    📄 empregada.py
+    📄 formas_geo.py
+  📁 Herança
+    📄 Ex1Veiculo.py
+    📄 ExdeHeranca.py
+  📄 Motocicleta.py
+  📁 Polimorfismo
+    📄 poli_ex1.py
+    📄 poli_ex2.py
+    📄 poli_ex3.py
+📁 Documentos
+  📄 Casos de uso - Cinema.docx
+  📄 Diagrama de Casos de Uso - Sist.Acadêmico.docx
+  📄 Diagrama de Casos de Uso - Sist.Consultas.pdf
+  📄 Diagrama de Casos de Uso - Sist.Gest.Acad.pdf
+  📄 Diagrama de Classes - Sist.Consultas.pdf
+  📄 Estudo de Caso - Gestão de Consultas Médicas.docx
+  📄 Estudo de Casos.docx
+  📄 Sistema de Gestão Acadêmica.zip
+  📄 Sistema de Gestão de Consultas.zip
+  📄 Template_RF.docx
+📁 Exceções
+  📄 exception1.py
+  📄 exception2.py
+  📄 exception3.py
+  📄 exception4.py
+  📄 exercicio_aula.py
+📁 Exercicios
+  📄 Ex5-FolhasPagamento.py
+  📄 Ex6-Trans_Banc.py
+  📄 Ex6-Trans_BancParte2.py
+  📄 Ex7-NotaFiscal.py
+  📄 Ex8-Fisio.py
+  📄 Ex9-Exceção.py
+  📄 Exercicio.py
+  📄 Exercicio10.py
+  📄 Exercicio8.py
+  📄 Exercício9.py
+📁 Frações
+  📄 frac1.py
+  📄 frac2.py
+  📄 fracMista.py
+📄 diagrama.tex
 ```
 <!-- BLOCO:estrutura_FIM -->
 
@@ -135,3 +177,22 @@ UNIFEI - Universidade Federal de Itajubá
 ---
 
 **Última atualização:** Maio de 2026
+
+<!-- BLOCO:classes_conceitos_INICIO -->
+## 📚 Classes e Conceitos
+A pasta `Classes/` contém exemplos práticos dos principais pilares da POO:
+
+- **`Associações/`**
+- **`Classe abstrata/`**
+  - `academico1.py`
+  - `empregada.py`
+  - `formas_geo.py`
+- **`Herança/`**
+  - `Ex1Veiculo.py`
+  - `ExdeHeranca.py`
+- **`Motocicleta.py`**
+- **`Polimorfismo/`**
+  - `poli_ex1.py`
+  - `poli_ex2.py`
+  - `poli_ex3.py`
+<!-- BLOCO:classes_conceitos_FIM -->

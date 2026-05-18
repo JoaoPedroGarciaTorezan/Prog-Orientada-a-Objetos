@@ -7,16 +7,26 @@ class GUI:
       self.janela.geometry('250x150')
       self.frame1 = tk.Frame(self.janela)
       self.frame2 = tk.Frame(self.janela)
+      self.frame3 = tk.Frame(self.janela)
       self.frame1.pack()
       self.frame2.pack()
+      self.frame3.pack()
       
-      self.labelInfo = tk.Label(self.frame1,text="Digite algo:")
-      self.labelResult = tk.Label(self.frame2,text="Nada")
-      self.labelInfo.pack(side="left")
-      self.labelResult.pack(side="left")
+      self.labelInfo1 = tk.Label(self.frame1,text="Digite algo:")
+      self.labelInfo2 = tk.Label(self.frame2,text="Digite algo:")
+
+      self.labelResult1 = tk.Label(self.frame3,text="Nada")
+      self.labelResult2 = tk.Label(self.frame3,text="Nada")
+
+      self.labelInfo1.pack(side="left")
+      self.labelInfo2.pack(side="left")
+
+      self.labelResult1.pack(side="top")
+      self.labelResult2.pack(side="top")
+
       
       self.buttonSubmit = tk.Button(self.janela,text="Enter", \
-                                    command=self.farofa)      
+                                    command=self.submit)      
       self.buttonSubmit.pack(side="left")
       
       self.buttonClear = tk.Button(self.janela,text="Clear", \
@@ -24,20 +34,25 @@ class GUI:
       self.buttonClear.pack(side="left")
       
       # Criando o objeto Entry
-      self.inputText = tk.Entry(self.frame1, width=20)
-      self.inputText.pack(side="left")
+      self.inputText1 = tk.Entry(self.frame1, width=20)
+      self.inputText1.pack(side="top")
+      self.inputText2 = tk.Entry(self.frame2, width=20)
+      self.inputText2.pack(side="top")
       
       self.janela.mainloop()
    
    # Criando as funções de callback
-   def farofa(self):
+   def submit(self):
       # O texto pode ser recuperado do com o comando get()
-      self.labelResult["text"] = self.inputText.get()
+      self.labelResult1["text"] = self.inputText1.get()
+      self.labelResult2["text"] = self.inputText2.get()
       
    def clear(self):
-      self.inputText.delete(0, len(self.inputText.get()))
-      self.labelResult["text"] = "O Palmeiras não tem mundial"
-   
+      self.inputText1.delete(0, len(self.inputText1.get()))
+      self.inputText2.delete(0, len(self.inputText2.get()))
+      self.labelResult1["text"] = "O Palmeiras não"
+      self.labelResult2["text"] = "tem Mundial"
+
 def main():
    GUI()
    

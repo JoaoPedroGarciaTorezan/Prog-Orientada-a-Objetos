@@ -105,6 +105,14 @@ A pasta `Classes/` contém exemplos práticos dos principais pilares da POO:
   📄 frac1.py
   📄 frac2.py
   📄 fracMista.py
+📁 Interfaces
+  📄 tk01.py
+  📄 tk02.py
+  📄 tk03.py
+  📄 tk04.py
+  📄 tk05.py
+  📄 tk06.py
+  📄 tk07.py
 📄 diagrama.tex
 ```
 <!-- BLOCO:estrutura_FIM -->

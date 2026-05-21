@@ -91,6 +91,7 @@ A pasta `Classes/` contém exemplos práticos dos principais pilares da POO:
   📄 exception4.py
   📄 exercicio_aula.py
 📁 Exercicios
+  📄 EX10-ConsultaCliente.py
   📄 Ex5-FolhasPagamento.py
   📄 Ex6-Trans_Banc.py
   📄 Ex6-Trans_BancParte2.py
@@ -113,6 +114,8 @@ A pasta `Classes/` contém exemplos práticos dos principais pilares da POO:
   📄 tk05.py
   📄 tk06.py
   📄 tk07.py
+📁 ModeloMVC
+  📄 aula14-ex1.py
 📄 diagrama.tex
 ```
 <!-- BLOCO:estrutura_FIM -->

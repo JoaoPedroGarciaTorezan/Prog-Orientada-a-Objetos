@@ -85,6 +85,7 @@ A pasta `Classes/` contém exemplos práticos dos principais pilares da POO:
   📄 Sistema de Gestão de Consultas.zip
   📄 Template_RF.docx
 📁 Exceções
+  📄 XDES02_aula12-1.pdf
   📄 exception1.py
   📄 exception2.py
   📄 exception3.py
@@ -103,10 +104,12 @@ A pasta `Classes/` contém exemplos práticos dos principais pilares da POO:
   📄 Exercicio8.py
   📄 Exercício9.py
 📁 Frações
+  📄 XDES02_aula11.pdf
   📄 frac1.py
   📄 frac2.py
   📄 fracMista.py
 📁 Interfaces
+  📄 XDES02_aula13.pdf
   📄 tk01.py
   📄 tk02.py
   📄 tk03.py
@@ -115,6 +118,7 @@ A pasta `Classes/` contém exemplos práticos dos principais pilares da POO:
   📄 tk06.py
   📄 tk07.py
 📁 ModeloMVC
+  📄 XDES02_aula14.pdf
   📄 aula14-ex1.py
 📄 diagrama.tex
 ```

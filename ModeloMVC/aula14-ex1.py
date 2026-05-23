@@ -1,6 +1,18 @@
 import tkinter as tk
 from tkinter import messagebox, simpledialog
 
+#Observações:
+# Model - dados
+# View - interface do usuário
+# Frames - organização visual da interface, agrupando elementos relacionados.
+# Label - rótulos de texto para identificar campos ou fornecer informações.
+# Entry - campos de entrada de dados
+# Button - botões para acionar ações
+# Bind - vincula eventos (como cliques) a funções de callback
+# Controller - lógica de controle, manipula eventos e interage com o modelo e a view
+# root - janela principal da aplicação
+
+
 class ModelCliente():
     def __init__(self, nome, email, codigo):
         self.__nome = nome

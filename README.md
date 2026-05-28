@@ -123,6 +123,7 @@ A pasta `Classes/` contém exemplos práticos dos principais pilares da POO:
     📄 disciplina.py
     📄 estudante.py
     📄 main.py
+    📄 turma.py
   📄 Exemplo1.py
   📄 XDES02_aula14.pdf
   📄 aula14-ex1.py

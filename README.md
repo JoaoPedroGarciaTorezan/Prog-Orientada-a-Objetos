@@ -118,6 +118,11 @@ A pasta `Classes/` contém exemplos práticos dos principais pilares da POO:
   📄 tk06.py
   📄 tk07.py
 📁 ModeloMVC
+  📁 Aula15-pratica
+    📄 XDES02_aula15.pdf
+    📄 disciplina.py
+    📄 estudante.py
+    📄 main.py
   📄 Exemplo1.py
   📄 XDES02_aula14.pdf
   📄 aula14-ex1.py

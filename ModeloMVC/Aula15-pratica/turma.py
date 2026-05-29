@@ -79,7 +79,7 @@ class CtrlTurma():
         self.listaTurmas = []
 
     def insereTurmas(self):        
-        self.listaAlunosTurma = []
+        self.listaAlunosTurma = [] #lista temporária
         listaCodDisc = self.ctrlPrincipal.ctrlDisciplina.getListaCodDisciplinas()
         listaNroMatric = self.ctrlPrincipal.ctrlEstudante.getListaNroMatric()
         self.limiteIns = LimiteInsereTurma(self, listaCodDisc, listaNroMatric)
@@ -101,10 +101,9 @@ class CtrlTurma():
         self.limiteIns.listbox.delete(tk.ACTIVE)
         
     def mostraTurmas(self):
-        print("Código -- Disciplina -- Alunos \n")
-        for tur in self.listaTurmas:
-            print("{} -- {} -- {}".format(tur.codigo, tur.disciplina, tur.estudantes))
-        
-
-        
-    
+        str = ""
+        for trm in self.listaTurmas:
+            str += "\n" + trm.codigo + " -- " + trm.disciplina.codigo + "\n"
+            for est in trm.estudantes:
+                str += "    " + est.nome + " -- " + est.nroMatric + "\n"
+        self.limiteLista = LimiteMostraTurmas(str)

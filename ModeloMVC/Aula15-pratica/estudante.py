@@ -1,5 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
+import os.path
+import pickle
 
 class Estudante:
 
@@ -58,16 +60,19 @@ class LimiteInsereEstudantes(tk.Toplevel):
 class LimiteMostraEstudantes():
     def __init__(self, str):
         messagebox.showinfo('Lista de alunos', str)
-
-      
+     
 class CtrlEstudante():       
-    def __init__(self):
-        self.listaEstudantes = [
-            Estudante('1001', 'Joao Santos'),
-            Estudante('1002', 'Marina Cintra'),
-            Estudante('1003', 'Felipe Reis'),
-            Estudante('1004', 'Ana Souza')
-        ]
+    def __init__(self): #Checar se existe o aquivo
+        if not os.path.isfile("estudante.pickle"):
+            self.listaEstudantes =  [] # Se não existir, cria uma lista vazia
+        else:
+            with open("estudante.pickle", "rb") as f: #Se existir, criauma lista de estudantes a partir desse arquivo
+                self.listaEstudantes = pickle.load(f)
+
+    def salvaEstudantes(self):
+        if len(self.listaEstudantes) != 0:
+            with open("estudante.pickle","wb") as f:
+                pickle.dump(self.listaEstudantes, f)
 
     def getEstudante(self, nroMatric):
         estRet = None

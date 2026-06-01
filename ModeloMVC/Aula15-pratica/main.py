@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 import estudante as est
 import disciplina as disc
 import turma as trm
@@ -11,7 +12,8 @@ class LimitePrincipal():
         self.menubar = tk.Menu(self.root)        
         self.estudanteMenu = tk.Menu(self.menubar)
         self.discipMenu = tk.Menu(self.menubar)
-        self.turmaMenu = tk.Menu(self.menubar)     
+        self.turmaMenu = tk.Menu(self.menubar)
+        self.sairMenu = tk.Menu(self.menubar)    
 
         self.estudanteMenu.add_command(label="Insere", \
                     command=self.controle.insereEstudantes)
@@ -28,11 +30,16 @@ class LimitePrincipal():
                     menu=self.discipMenu)
 
         self.turmaMenu.add_command(label="Insere", \
-                    command=self.controle.insereTurmas)    
+                    command=self.controle.insereTurmas)
         self.turmaMenu.add_command(label="Mostra", \
-                    command=self.controle.mostraTurmas)                  
+                    command=self.controle.mostraTurmas)                     
         self.menubar.add_cascade(label="Turma", \
                     menu=self.turmaMenu)        
+
+        self.sairMenu.add_command(label="Salva", \
+                    command=self.controle.salvaDados)
+        self.menubar.add_cascade(label="Sair", \
+                    menu=self.sairMenu)
 
         self.root.config(menu=self.menubar)
 
@@ -68,6 +75,12 @@ class ControlePrincipal():
 
     def mostraTurmas(self):
         self.ctrlTurma.mostraTurmas()
+
+    def salvaDados(self):
+        self.ctrlEstudante.salvaEstudantes()
+        self.ctrlDisciplina.salvaDisciplinas()
+        self.ctrlTurma.salvaTurmas()
+        self.root.destroy()
 
 if __name__ == '__main__':
     c = ControlePrincipal()

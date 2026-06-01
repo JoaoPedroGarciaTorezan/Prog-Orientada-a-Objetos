@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
+import os.path
+import pickle
 
 class Turma:
 
@@ -76,7 +78,20 @@ class LimiteMostraTurmas():
 class CtrlTurma():       
     def __init__(self, controlePrincipal):
         self.ctrlPrincipal = controlePrincipal
-        self.listaTurmas = []
+        if not os.path.isfile("turmas.pickle"):
+            self.listaTurmas = []
+        else:
+            try:
+                with open("turmas.pickle", "rb") as t:
+                    self.listaTurmas = pickle.load(t)
+            except EOFError:
+                self.listaTurmas = []
+    
+    def salvaTurmas(self):
+        if len(self.listaTurmas) != 0:
+            with open("turmas.pickle", "wb") as t:
+                pickle.dump(self.listaTurmas, t)
+
 
     def insereTurmas(self):        
         self.listaAlunosTurma = [] #lista temporária

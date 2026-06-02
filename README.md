@@ -120,6 +120,7 @@ A pasta `Classes/` contém exemplos práticos dos principais pilares da POO:
 📁 ModeloMVC
   📁 Aula15-pratica
     📄 XDES02_aula15.pdf
+    📄 XDES02_aula16.pdf
     📄 disciplina.py
     📄 estudante.py
     📄 main.py
@@ -128,5 +129,9 @@ A pasta `Classes/` contém exemplos práticos dos principais pilares da POO:
   📄 XDES02_aula14.pdf
   📄 aula14-ex1.py
 📄 diagrama.tex
+📄 disciplina.pickle
+📄 disciplina.piclke
+📄 estudante.pickle
+📄 turmas.pickle
 ```
 <!-- BLOCO:estrutura_FIM -->

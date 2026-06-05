@@ -1,33 +1,40 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
+from tkinter import simpledialog
+import pizza as piz
 
 
 class Pedido:
-    def __init__(self, nro_pedido, quant, pizza):
+    def __init__(self, nro_pedido, quant, pizzas, precoTotal):
         self.__nro_pedido = nro_pedido
         self.__quant = quant
-        self.__pizza = pizza
+        self.__pizzas = pizzas
+        self.__precoTotal = precoTotal
 
 
     @property
     def nro_pedido(self):
         return self.__nro_pedido
+
+    @property
+    def precoTotal(self):
+        return self.__precoTotal
     
     @property
     def quant(self):
         return self.__quant
     
     @property
-    def pizza(self):
-        return self.__pizza
+    def pizzas(self):
+        return self.__pizzas
 
 
 class LimiteCadastrarPedido(tk.Toplevel):
     def __init__(self, controle, listaNomes):
 
         tk.Toplevel.__init__(self)
-        self.geometry('250x100')
+        self.geometry('350x250')
         self.title("Pedidos")
         self.controle = controle
 
@@ -46,17 +53,17 @@ class LimiteCadastrarPedido(tk.Toplevel):
         self.inputNro_pedido.pack(side="left")
 
         self.labelPizza = tk.Label(self.framePizza,text="Escolha o sabor da pizza: ")
-        self.labelPizza.pack(side="left")
+        self.labelPizza.pack(side="top")
         self.escolhaCombo1 = tk.StringVar()
         self.combobox1 = ttk.Combobox(self.framePizza, width = 15 , textvariable = self.escolhaCombo1)
-        self.combobox1.pack(side="left")
+        self.combobox1.pack(side="top")
         self.combobox1['values'] = listaNomes
 
         self.labelPizza = tk.Label(self.framePizza,text="Escolha o sabor da pizza: ")
-        self.labelPizza.pack(side="left")
+        self.labelPizza.pack(side="top")
         self.escolhaCombo2 = tk.StringVar()
         self.combobox2 = ttk.Combobox(self.framePizza, width = 15 , textvariable = self.escolhaCombo2)
-        self.combobox2.pack(side="left")
+        self.combobox2.pack(side="top")
         self.combobox2['values'] = listaNomes
 
         self.labelQuant = tk.Label(self.framequant,text="Informe a quantidade: ")
@@ -77,7 +84,7 @@ class LimiteCadastrarPedido(tk.Toplevel):
 
 class LimiteConsultarPedido(tk.Toplevel):
     def __init__(self, str):
-        messagebox.showinfo(str)
+        messagebox.showinfo("Pedido ", str)
 
 
 class ctrlPedido():
@@ -91,35 +98,61 @@ class ctrlPedido():
         self.limiteCad = LimiteCadastrarPedido(self, listaNomes)
 
     def consultarPedido(self):
-        nroPed = self.limiteCad.inputNro_pedido.get()
-        possui_atributo = any(hasattr(ped, nroPed) for ped in self.listaPedidos)  
-        if possui_atributo == False:
-            str = "Não foi possivel encontrar este número de pedido." 
-            self.limiteLista = LimiteConsultarPedido(str)
-        else: 
-            for pizz in self.listaPizzas:
-                str += pizz.codigo + " - " + pizz.quant + '- R$ ' + pizz.preco
-            self.limiteLista = LimiteConsultarPedido(str)
+        nroPed = simpledialog.askstring("Consulta de pedido", "Informe o número do pedido: ")
+        str1 = ""
+        if nroPed:
+            for ped in self.listaPedidos:
+                if nroPed == ped.nro_pedido:
+                    str1 += "Número do pedido: " + ped.nro_pedido + "\n"
+                    for ind, pizz in enumerate(ped.pizzas):
+                        ind += 1
+                        str1 += str(ind) + " " + pizz.descricao + ' ........R$ ' + "{:.2f}".format(float(pizz.preco)) + '\n'
+                    str1 += " Total do Pedido: R$ " + "{:.2f}".format(float(ped.precoTotal)) + '\n'
+                    self.limiteLista = LimiteConsultarPedido(str1)
+                    return
+        str1 = "Pedido não encontrado."
+        self.limiteLista = LimiteConsultarPedido(str1)
 
 
     def inserePizza(self, event):
-        pizzaSel1 = self.limiteCad.escolhaCombo1
-        pizzaSel2 = self.limiteCad.escolhaCombo2
-        pizz1 = self.ctrlPrincipal.ctrlPizza.getPizza(pizzaSel1)
-        pizz2 = self.ctrlPrincipal.ctrlPizza.getPizza(pizzaSel2)
-        self.listaPizzaTemp.append(pizz1)
-        self.listaPizzaTemp.append(pizz2)
+        sel1 = self.limiteCad.combobox1.current()
+        sel2 = self.limiteCad.combobox2.current()
+
+        pizz1 = None  # 
+        pizz2 = None
+
+        if sel1 != -1:
+            pizzaSel1 = self.limiteCad.escolhaCombo1.get()
+            pizz1 = self.ctrlPrincipal.ctrlPizza.getPizza(pizzaSel1)
+            self.listaPizzaTemp.append(pizz1)
+
+        if sel2 != -1:
+            pizzaSel2 = self.limiteCad.escolhaCombo2.get()
+            pizz2 = self.ctrlPrincipal.ctrlPizza.getPizza(pizzaSel2)
+            self.listaPizzaTemp.append(pizz2)
+
+        if pizz1 and pizz2:
+            self.listaPizzaTemp.remove(pizz1)
+            self.listaPizzaTemp.remove(pizz2)
+            preco = max(float(pizz1.preco), float(pizz2.preco))
+            descricao = pizz1.descricao + ' / ' + pizz2.descricao
+            pizzaComb = piz.Pizza('Comb', descricao, preco)
+            self.listaPizzaTemp.append(pizzaComb)
+
+        self.limiteCad.combobox1.set('')
+        self.limiteCad.combobox2.set('')
+
+        self.limiteCad.mostraJanela('Sucesso', 'Pizza incluída com sucesso')
 
         
 
     def fechaPedido(self, event):
         nroPed = self.limiteCad.inputNro_pedido.get()
-        pizzaSel1 = self.limiteCad.escolhaCombo1
-        pizzaSel2 = self.limiteCad.escolhaCombo2
-        pizz1 = self.ctrlPrincipal.ctrlPizza.getPizza(pizzaSel1)
-        pizz2 = self.ctrlPrincipal.ctrlPizza.getPizza(pizzaSel2)
         quant = self.limiteCad.inputQuant.get()
-        ped = Pedido(nroPed, pizz1, pizz2, quant)
+        precoTotal = 0
+        for pizz in self.listaPizzaTemp:
+            precoTotal += float(pizz.preco)
+        ped = Pedido(nroPed, quant, self.listaPizzaTemp, precoTotal)
         self.listaPedidos.append(ped)
         self.limiteCad.mostraJanela('Sucesso', 'Pedido fechado com sucesso')
         self.limiteCad.destroy()

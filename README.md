@@ -103,6 +103,10 @@ A pasta `Classes/` contém exemplos práticos dos principais pilares da POO:
   📄 Exercicio10.py
   📄 Exercicio8.py
   📄 Exercício9.py
+  📁 Trab12
+    📄 pedidos.py
+    📄 pizza.py
+    📄 trab12.py
 📁 Frações
   📄 XDES02_aula11.pdf
   📄 frac1.py

@@ -1,5 +1,5 @@
 import tkinter as tk
-import jogo as jg
+import jogos as jg
 
 class LimitePrincipal():
     def __init__(self, root, controle):

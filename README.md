@@ -107,6 +107,7 @@ A pasta `Classes/` contém exemplos práticos dos principais pilares da POO:
     📄 cupomFiscal.py
     📄 produto.py
     📄 trab11.py
+    📄 trab11.zip
   📁 Trab12
     📄 pedidos.py
     📄 pizza.py
@@ -137,10 +138,12 @@ A pasta `Classes/` contém exemplos práticos dos principais pilares da POO:
   📄 Exemplo1.py
   📄 XDES02_aula14.pdf
   📄 aula14-ex1.py
+📄 cupomFiscals.pickle
 📄 diagrama.tex
 📄 disciplina.pickle
 📄 disciplina.piclke
 📄 estudante.pickle
+📄 produtos.pickle
 📄 turmas.pickle
 ```
 <!-- BLOCO:estrutura_FIM -->

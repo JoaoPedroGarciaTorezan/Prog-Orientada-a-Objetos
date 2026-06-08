@@ -26,6 +26,10 @@ class Produto:
     @property
     def quant(self):
         return self.__quant
+    
+    @quant.setter
+    def quant(self, quant):
+        self.__quant = quant
 
 
 class LimiteCadastrarProduto(tk.Toplevel):
@@ -77,7 +81,19 @@ class LimiteConsultarProduto(tk.Toplevel):
 
 class ctrlProduto():
     def __init__(self):
-        self.listaProdutos = []
+        if not os.path.isfile("produtos.pickle"):
+            self.listaProdutos = []
+        else:
+            try:
+                with open("produtos.pickle", "rb") as f:
+                    self.listaProdutos = pickle.load(f)
+            except EOFError:
+                self.listaProdutos = []
+
+    def salvaProdutos(self):
+        if len(self.listaProdutos) != 0:
+            with open("produtos.pickle", "wb") as f:
+                pickle.dump(self.listaProdutos, f)
 
     def getListaProdutos(self):
         return self.listaProdutos

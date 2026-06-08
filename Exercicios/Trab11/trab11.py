@@ -11,6 +11,7 @@ class LimitePrincipal():
         self.menubar = tk.Menu(self.root)        
         self.produtoMenu = tk.Menu(self.menubar)
         self.CupomFiscalMenu = tk.Menu(self.menubar)    
+        self.sairMenu = tk.Menu(self.menubar)
 
         self.produtoMenu.add_command(label="Cadastrar", \
                     command=self.controle.cadastrarProduto)
@@ -25,6 +26,11 @@ class LimitePrincipal():
                     command=self.controle.consultarCupomFiscal)
         self.menubar.add_cascade(label="Cupom Fiscal", \
                     menu=self.CupomFiscalMenu)
+        
+        self.sairMenu.add_command(label="Salva", \
+                    command=self.controle.salvaDados)
+        self.menubar.add_cascade(label="Sair", \
+                    menu=self.sairMenu)
         
         self.root.config(menu=self.menubar)
 
@@ -54,6 +60,11 @@ class ControlePrincipal():
 
     def consultarCupomFiscal(self):
         self.ctrlCupomFiscal.consultarCupomFiscal()
+    
+    def salvaDados(self):
+        self.ctrlProduto.salvaProdutos()
+        self.ctrlCupomFiscal.salvarCupomFiscals()
+        self.root.destroy()
 
 
 if __name__ == '__main__':

@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 from tkinter import simpledialog
+import os.path
+import pickle
 
 
 class CupomFiscal:
@@ -64,28 +66,38 @@ class LimiteConsultarCupomFiscal(tk.Toplevel):
 class ctrlCupomFiscal():
     def __init__(self, controlePrincipal):
         self.ctrlPrincipal = controlePrincipal
-        self.listaCupomFiscals = []
+        if not os.path.isfile("cupomFiscals.pickle"):
+            self.listaCupomFiscals = []
+        else:
+            try:
+                with open("cupomFiscals.pickle", "rb") as f:
+                    self.listaCupomFiscals = pickle.load(f)
+            except EOFError:
+                self.listaCupomFiscals = []
 
     def criarCupomFiscal(self):
         self.listaProdutoTemp = []
         listaNomes = self.ctrlPrincipal.ctrlProduto.getNomeProdutos()
         self.limiteCad = LimiteCadastrarCupomFiscal(self, listaNomes)
 
+    def salvarCupomFiscals(self):
+        if len(self.listaCupomFiscals) != 0:
+            with open("cupomFiscals.pickle", "wb") as f:
+                pickle.dump(self.listaCupomFiscals, f)
+
     def consultarCupomFiscal(self):
         nroCupom = simpledialog.askstring("Consulta de CupomFiscal", "Informe o número do CupomFiscal: ")
         str1 = ""
-        precoParc = 0
-        precoTotal = 0
-            
-             
+        precoParcial = 0
+        precoTotal = 0     
         if nroCupom:
             for cuFis in self.listaCupomFiscals:
                 if nroCupom == cuFis.nro_cupomFiscal:
                     str1 += "Número do CupomFiscal: " + cuFis.nro_cupomFiscal + "\n"
-                    for ind, prod in enumerate(cuFis.itensCupom):
-                        ind += 1
-                        str1 += str(ind) + " " + prod.descricao + ' - R$ ' + "{:.2f}".format(prod.valorUni) + '\n'
-                        precoTotal += prod.valorUni
+                    for prod in set(cuFis.itensCupom): #set -> tira itens repetidos
+                        precoParcial = float(prod.valorUni)*float(prod.quant)
+                        str1 += str(prod.quant) + " - " + prod.descricao + ' - R$ ' + "{:.2f}".format(precoParcial) + '\n'
+                        precoTotal += precoParcial
                     str1 += " Total do CupomFiscal: R$ " + "{:.2f}".format(precoTotal) + '\n'
                     self.limiteLista = LimiteConsultarCupomFiscal(str1)
                     return
@@ -96,6 +108,7 @@ class ctrlCupomFiscal():
     def incluirItem(self, event):
         prodSel = self.limiteCad.listbox.get(tk.ACTIVE)
         item = self.ctrlPrincipal.ctrlProduto.getProduto(prodSel)
+        item.quant += 1
         self.listaProdutoTemp.append(item)
         self.limiteCad.mostraJanela('Sucesso', 'Produto incluído com sucesso')
 

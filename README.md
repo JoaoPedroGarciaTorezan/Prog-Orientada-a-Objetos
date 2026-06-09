@@ -113,6 +113,9 @@ A pasta `Classes/` contém exemplos práticos dos principais pilares da POO:
     📄 pizza.py
     📄 trab12.py
     📄 trab12.zip
+  📁 Trab13
+    📄 jogos.py
+    📄 trab13.py
 📁 Frações
   📄 XDES02_aula11.pdf
   📄 frac1.py
@@ -135,6 +138,9 @@ A pasta `Classes/` contém exemplos práticos dos principais pilares da POO:
     📄 estudante.py
     📄 main.py
     📄 turma.py
+  📁 Exceções
+    📄 main.py
+    📄 vinho.py
   📄 Exemplo1.py
   📄 XDES02_aula14.pdf
   📄 aula14-ex1.py
@@ -143,6 +149,7 @@ A pasta `Classes/` contém exemplos práticos dos principais pilares da POO:
 📄 disciplina.pickle
 📄 disciplina.piclke
 📄 estudante.pickle
+📄 jogos.pickle
 📄 produtos.pickle
 📄 turmas.pickle
 ```

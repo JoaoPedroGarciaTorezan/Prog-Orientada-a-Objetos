@@ -1,15 +1,18 @@
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import simpledialog
+from tkinter import ttk
+import os.path
+import pickle
 
 class Jogo:
-    def __init__(self, codigo, titulo, console, genero, preco, avaliacoes):
+    def __init__(self, codigo, titulo, console, genero, preco):
         self.codigo = codigo
         self.titulo = titulo
         self.console = console
         self.genero = genero
         self.preco = preco
-        self.__avaliacoes = avaliacoes
+        self.__avaliacoes = []
 
     @property
     def codigo(self):
@@ -30,8 +33,8 @@ class Jogo:
     
     @titulo.setter
     def titulo(self, valor):
-        self.titulo = ['*', '@', '#', '$', '%', '&']
-        if not valor or valor in self.titulo:
+        teste = any(not c.isalnum() and not c.isspace() for c in valor)
+        if not valor or teste:
             if not valor:
                 raise ValueError("Título não pode ser vazio.")
             else:
@@ -84,11 +87,28 @@ class Jogo:
         return self.__avaliacoes
     
     def getJogo(self):
+        avaMedia = 0
+        if self.avaliacoes:
+            for ava in self.avaliacoes:
+                avaMedia += ava #considerando que a avaliação é do formato "X estrelas"
+            avaMedia = avaMedia / len(self.avaliacoes)
+            if 0<= avaMedia <= 1:
+                avaMedia = "1 estrela"
+            elif 1 < avaMedia <= 2:
+                avaMedia = '2 estrelas'
+            elif 2 < avaMedia <= 3:
+                avaMedia = '3 estrelas'
+            elif 3 < avaMedia <= 4:
+                avaMedia = '4 estrelas'
+            elif 4 < avaMedia <= 5:
+                avaMedia = '5 estrelas'
+            
         return "Título: " + str(self.titulo)\
         + "\nCódigo: " + str(self.codigo)\
         + "\nConsole: " + str(self.console)\
         + "\nGênero: " + str(self.genero)\
-        + "\nPreço: " + str(self.preco)
+        + "\nPreço: " + str(self.preco)\
+        + "\nAvaliação média: " + avaMedia
     
 class LimiteInsereJogo(tk.Toplevel):
     def __init__(self, controle):
@@ -149,24 +169,104 @@ class LimiteInsereJogo(tk.Toplevel):
     def mostraJanela(self, titulo, msg):
         messagebox.showinfo(titulo, msg)
 
+class LimiteAvaliaJogo(tk.Toplevel):
+    def __init__(self, controle):
+
+        tk.Toplevel.__init__(self)
+        self.geometry('250x200')
+        self.title("Avaliação do Jogo")
+        self.controle = controle
+
+        self.frameCodigo = tk.Frame(self)
+        self.frameAvalacao = tk.Frame(self)
+        self.frameButton = tk.Frame(self)
+        self.frameCodigo.pack()
+        self.frameAvalacao.pack()
+        self.frameButton.pack()
+
+        self.labelCodigo = tk.Label(self.frameCodigo, text="Digite o código do jogo: ")
+        self.labelCodigo.pack(side="left")
+        self.inputCodigo = tk.Entry(self.frameCodigo)
+        self.inputCodigo.pack(side="left")
+
+        self.labelAvalacao = tk.Label(self.frameAvalacao, text="Escolha a avaliação (1-5): ")
+        self.labelAvalacao.pack(side="left")
+        self.escolhaCombo = tk.StringVar()
+        self.combobox = ttk.Combobox(self.frameAvalacao, width = 5 , textvariable = self.escolhaCombo)
+        self.combobox.pack(side="left")
+        self.combobox['values'] = ['1 estrela', '2 estrelas', '3 estrelas', '4 estrelas', '5 estrelas']
+
+        self.buttonSubmit = tk.Button(self.frameButton ,text="Avaliar")
+        self.buttonSubmit.pack(side="left")
+        self.buttonSubmit.bind("<Button>", controle.avaliaHandler)
+
+    def mostraJanela(self, titulo, msg):
+        messagebox.showinfo(titulo, msg)
+
+class LimiteConsultaJogo(tk.Toplevel):
+    def __init__(self, avaliacoes, controle):
+
+        tk.Toplevel.__init__(self)
+        self.geometry('400x250')
+        self.title("Consultar Jogos")
+        self.ctrl = controle
+
+        self.frameCombos = tk.Frame(self)
+        self.frameCombos.pack(pady=3)
+
+        self.labelAvaliacoes = tk.Label(self.frameCombos,text="Avaliação: ")
+        self.labelAvaliacoes.pack(side="left")
+        self.escolhaAvaliacao = tk.StringVar()
+        self.comboboxAvaliacao = ttk.Combobox(self.frameCombos, width = 15 ,values=avaliacoes, textvariable = self.escolhaAvaliacao)
+        self.comboboxAvaliacao.pack(side="left")
+        self.comboboxAvaliacao.bind("<<ComboboxSelected>>", self.ctrl.exibeAvaliacao) #combobox gera um evento
+
+        self.frameAvaliacoes = tk.Frame(self)
+        self.frameAvaliacoes.pack()
+        self.textAvaliacoes = tk.Text(self.frameAvaliacoes, height=20,width=40)
+        self.textAvaliacoes.pack()
+        self.textAvaliacoes.config(state=tk.DISABLED)
+
     
 class CtrlJogo:
     def __init__(self, controle):
         self.controle = controle
-        self.jogos = []
+        if not os.path.isfile("jogos.pickle"):
+            self.jogos = []
+        else:
+            try:
+                with open("jogos.pickle", "rb") as f:
+                    self.jogos = pickle.load(f)
+            except EOFError as error:
+                self.jogos = []
+
+    def salvaJogos(self):
+        if len(self.jogos) != 0:
+            with open("jogos.pickle", "wb") as f:
+                pickle.dump(self.jogos, f)
 
     def cadastraJogo(self):
         self.limiteInsere = LimiteInsereJogo(self)
 
+    def avaliaJogo(self):
+        self.limiteAvalia = LimiteAvaliaJogo(self)
+    
+    def consultaJogo(self):
+        self.listaAvaliacoes = []
+        for jogo in self.jogos:
+           if (not jogo.avaliacoes in self.listaAvaliacoes):
+               self.listaAvaliacoes.append(jogo.avaliacoes)
+        self.limiteCons = LimiteConsultaJogo(self.listaAvaliacoes, self)
+
     def enterHandler(self, event):
-        codigo = self.limiteInsere.inputCodigo.get()
+        codigo = int(self.limiteInsere.inputCodigo.get())
         titulo = self.limiteInsere.inputTitulo.get()
         console = self.limiteInsere.inputConsole.get()
         genero = self.limiteInsere.inputGenero.get()
         preco = float(self.limiteInsere.inputPreco.get())
 
         try:
-            jogo = Jogo(codigo, titulo, console, genero, preco, [])
+            jogo = Jogo(codigo, titulo, console, genero, preco)
             self.jogos.append(jogo)
             self.limiteInsere.mostraJanela("Sucesso", "Jogo cadastrado com sucesso!")
             self.clearHandler(event)
@@ -179,3 +279,29 @@ class CtrlJogo:
         self.limiteInsere.inputConsole.delete(0, len(self.limiteInsere.inputConsole.get()))
         self.limiteInsere.inputGenero.delete(0, len(self.limiteInsere.inputGenero.get()))
         self.limiteInsere.inputPreco.delete(0, len(self.limiteInsere.inputPreco.get()))
+
+    def avaliaHandler(self, event):
+        codigo = int(self.limiteAvalia.inputCodigo.get())
+        avaliacao = self.limiteAvalia.combobox['values'].index(self.limiteAvalia.escolhaCombo.get()) + 1  
+
+        for jogo in self.jogos:
+            if jogo.codigo == codigo:
+                jogo.avaliacoes.append(avaliacao)
+                self.limiteAvalia.mostraJanela("Sucesso", "Avaliação registrada com sucesso!")
+                return
+        
+        self.limiteAvalia.mostraJanela("Erro", "Jogo com código {} não encontrado.".format(codigo))
+
+    def exibeAvaliacao(self, event):
+        avaliSel = self.limiteCons.comboboxAvaliacao.get()
+        self.limiteCons.textAvaliacoes.config(state='normal')
+        self.limiteCons.textAvaliacoes.delete(1.0, tk.END)
+        for jogo in self.jogos:
+            for avaliacao in jogo.avaliacoes:
+                if avaliacao == avaliSel:
+                    self.limiteCons.textAvaliacoes.insert(1.0, jogo.getJogo() + "\n\n")
+        self.limiteCons.textAvaliacoes.config(state='disabled')
+
+    def fechaHandler(self, event):
+        self.limiteInsere.destroy()
+

@@ -255,8 +255,8 @@ class CtrlJogo:
         self.listaAvaliacoes = []
         for jogo in self.jogos:
            for ava in jogo.avaliacoes:
-            if (not ava in self.listaAvaliacoes):
-               self.listaAvaliacoes.append(ava)
+            if (not f'{ava} estrelas' in self.listaAvaliacoes):
+               self.listaAvaliacoes.append(f'{ava} estrelas')
         self.listaAvaliacoes.sort()
         self.limiteCons = LimiteConsultaJogo(self.listaAvaliacoes, self)
 
@@ -295,12 +295,12 @@ class CtrlJogo:
         self.limiteAvalia.mostraJanela("Erro", "Jogo com código {} não encontrado.".format(codigo))
 
     def exibeAvaliacao(self, event):
-        avaliSel = int(self.limiteCons.comboboxAvaliacao.get())
+        avaliSel = self.limiteCons.comboboxAvaliacao.get()
         self.limiteCons.textAvaliacoes.config(state='normal')
         self.limiteCons.textAvaliacoes.delete(1.0, tk.END)
         for jogo in self.jogos:
             for avaliacao in set(jogo.avaliacoes):
-                if avaliacao == avaliSel:
+                if f'{avaliacao} estrelas' == avaliSel:
                     self.limiteCons.textAvaliacoes.insert(1.0, jogo.getJogo() + "\n\n")
         self.limiteCons.textAvaliacoes.config(state='disabled')
 

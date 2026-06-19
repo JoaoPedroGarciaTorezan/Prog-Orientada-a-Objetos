@@ -69,7 +69,8 @@ class LimiteConsultaArtista(tk.Toplevel):
     
 class CtrlArtista:
     def __init__(self):
-        self.listaArtistas = []
+        col = Artista("Vários Artistas")
+        self.listaArtistas = [col]
 
     def getListaNomes(self):
         listNomes = []
@@ -92,12 +93,11 @@ class CtrlArtista:
             for art in self.listaArtistas:
                 if art.nome == nome:
                     for alb in art.listaAlbuns:
-                        str += "Album: {} \n".format(alb.nome)
+                        str += "Album: {} \n".format(alb.titulo)
                         for mus in alb.faixas:
-                            str += " - {} \n".format(mus.nome)
-            self.limiteCons = LimiteConsultaArtista(str)
-            return 
-        str = "Artista não encontrado"
+                            str += " - {} \n".format(mus.titulo)
+        if not str:
+            str = "Artista não encontrado"
         self.limiteCons = LimiteConsultaArtista(str)
 
     def enterHandler(self, event):

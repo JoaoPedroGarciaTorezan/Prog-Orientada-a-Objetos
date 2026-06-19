@@ -17,6 +17,10 @@ class Playlist:
     def musicas(self):
         return self.__musicas
     
+    @musicas.setter
+    def musicas(self, musicas):
+        self.__musicas = musicas.copy()
+    
 
 class LimiteCadastraPlaylist(tk.Toplevel):
     def __init__(self, controle, listaNomes):
@@ -56,7 +60,7 @@ class LimiteCadastraPlaylist(tk.Toplevel):
         self.buttonSubmit.pack(side="left")
         self.buttonSubmit.bind("<Button>", controle.InsereMusica)
 
-        self.buttonCriaPlaylist = tk.Button(self.frameButton ,text="Cria Álbum")      
+        self.buttonCriaPlaylist = tk.Button(self.frameButton ,text="Cria Playlist")      
         self.buttonCriaPlaylist.pack(side="left")
         self.buttonCriaPlaylist.bind("<Button>", controle.criaPlaylist)
 
@@ -76,15 +80,14 @@ class CtrlPlaylist:
     def cadastraPlaylist(self):
         self.MusicaTemp = []
         nomesArtists = self.ctrlPrincipal.ctrlArtista.getListaNomes()
-        nomesArtists.append("Vários Artistas")
         self.limiteCad = LimiteCadastraPlaylist(self, nomesArtists)
 
     def InsereMusica(self, event):
         artSel = self.limiteCad.combobox.get()
-        musSel = self.limiteCad.listbox.get()
+        musSel = self.limiteCad.listbox.get(tk.ACTIVE)
         artista = self.ctrlPrincipal.ctrlArtista.getArtista(artSel)
         for mus in artista.listaMusicas:
-            if mus.nome == musSel:
+            if mus.titulo == musSel:
                     self.MusicaTemp.append(mus)
         self.limiteCad.mostraJanela("Sucesso", "Música inserida com sucesso!")
         self.limiteCad.listbox.delete(tk.ACTIVE)
@@ -99,9 +102,8 @@ class CtrlPlaylist:
                     str += "Playlist: {} \n".format(play.nome)
                     for mus in play.musicas:
                         str += " - {} \n".format(mus.titulo)
-            self.limiteCons = LimiteConsultaPlaylist(str)
-            return 
-        str = "Playlist não encontrada"
+        if not str: 
+            str = "Playlist não encontrada"
         self.limiteCons = LimiteConsultaPlaylist(str)
 
     def criaPlaylist(self, event):
@@ -109,13 +111,13 @@ class CtrlPlaylist:
         playlist = Playlist(nome)
         playlist.musicas = self.MusicaTemp.copy()
         self.listaPlaylists.append(playlist)
-        self.limiteCad.mostraJanela("Sucesso", "Album cadastrado com sucesso!")
+        self.limiteCad.mostraJanela("Sucesso", "Playlist cadastrada com sucesso!")
         self.clearHandler(event)
         self.fechaHandler(event)
+        self.limiteCad.destroy()
 
     def clearHandler(self, event):
-        self.limiteCad.inputTitulo.delete(0, tk.END)
-        self.limiteCad.inputAno.delete(0, tk.END)
+        self.limiteCad.inputNome.delete(0, tk.END)
 
     def fechaHandler(self, event):
         self.limiteCad.destroy()
@@ -123,7 +125,6 @@ class CtrlPlaylist:
     def exibeMusicas(self, event):
         artSel = self.limiteCad.combobox.get()
         art = self.ctrlPrincipal.ctrlArtista.getArtista(artSel)
+        self.limiteCad.listbox.delete(0, tk.END)
         for mus in art.listaMusicas:
-            self.limiteCad.listbox.insert(1.0, mus.nome + "\n\n")
-        self.limiteCad.listbox.config(state="disabled")
-
+            self.limiteCad.listbox.insert(tk.END, mus.titulo)

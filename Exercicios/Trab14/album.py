@@ -127,7 +127,6 @@ class CtrlAlbum:
     def cadastraAlbum(self):
         self.faixaTemp = []
         nomesArtists = self.ctrlPrincipal.ctrlArtista.getListaNomes()
-        nomesArtists.append("Vários Artistas")
         self.limiteCad = LimiteCadastraAlbum(self, nomesArtists)
 
     def InsereFaixa(self, event):
@@ -136,7 +135,6 @@ class CtrlAlbum:
         artista = self.ctrlPrincipal.ctrlArtista.getArtista(artNome)
         nroFaixa = len(self.faixaTemp) +1
         musica = Musica(titulo, artista, self, nroFaixa)
-        artista.addMusica(musica)
         self.faixaTemp.append(musica)
         self.limiteCad.mostraJanela("Sucesso", "Faixa inserida com sucesso!")
         self.limiteCad.inputFaixa.delete(0, tk.END)
@@ -150,9 +148,8 @@ class CtrlAlbum:
                     str += "Album: {} \n".format(alb.titulo)
                     for mus in alb.faixas:
                         str += " - {} \n".format(mus.titulo)
-            self.limiteCons = LimiteConsultaAlbum(str)
-            return 
-        str = "Album não encontrado"
+        if not str:
+            str = "Album não encontrado"
         self.limiteCons = LimiteConsultaAlbum(str)
 
     def criaAlbum(self, event):
@@ -163,7 +160,6 @@ class CtrlAlbum:
         self.faixas = self.fechaHandler(event)
         album = Album(Titulo, artista, ano)
         album.faixas = self.faixaTemp.copy()
-        artista.addAlbum(album)
         self.listaAlbums.append(album)
         self.limiteCad.mostraJanela("Sucesso", "Album cadastrado com sucesso!")
         self.clearHandler(event)

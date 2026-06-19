@@ -120,6 +120,7 @@ A pasta `Classes/` contém exemplos práticos dos principais pilares da POO:
   📁 Trab14
     📄 album.py
     📄 artista.py
+    📄 playlist.py
     📄 trab14.py
 📁 Frações
   📄 XDES02_aula11.pdf

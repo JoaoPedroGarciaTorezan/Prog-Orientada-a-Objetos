@@ -1,6 +1,7 @@
 import tkinter as tk
 import artista as art
 import album as alb
+import playlist as ply
 
 class LimitePrincipal():
     def __init__(self, root, controle):
@@ -35,7 +36,7 @@ class ControlePrincipal():
 
         self.ctrlAlbum = alb.CtrlAlbum(self)
 
-        #self.ctrlPlaylist = jg.CtrlAlbum(self)
+        self.ctrlPlaylist = ply.CtrlPlaylist(self)
 
         self.limite = LimitePrincipal(self.root, self) 
 

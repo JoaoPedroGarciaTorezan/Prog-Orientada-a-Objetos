@@ -93,7 +93,7 @@ class CtrlArtista:
                 if art.nome == nome:
                     for alb in art.listaAlbuns:
                         str += "Album: {} \n".format(alb.nome)
-                        for mus in art.alb.listaMusicas:
+                        for mus in alb.faixas:
                             str += " - {} \n".format(mus.nome)
             self.limiteCons = LimiteConsultaArtista(str)
             return 

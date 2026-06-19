@@ -114,8 +114,13 @@ A pasta `Classes/` contém exemplos práticos dos principais pilares da POO:
     📄 trab12.py
     📄 trab12.zip
   📁 Trab13
+    📄 Trab13.zip
     📄 jogos.py
     📄 trab13.py
+  📁 Trab14
+    📄 album.py
+    📄 artista.py
+    📄 trab14.py
 📁 Frações
   📄 XDES02_aula11.pdf
   📄 frac1.py

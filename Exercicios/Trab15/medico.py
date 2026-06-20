@@ -10,6 +10,7 @@ class Medico:
         self.__nome = nome
         self.__CRM = CRM
         self.especialidade = especialidade
+        self.__consultas = []
 
     @property
     def nome(self):
@@ -32,6 +33,19 @@ class Medico:
             raise ValueError("Especialidade inválida: {}".format(espc))
         else:
             self.__especialidade = espc
+
+    @property
+    def consultas(self):
+        return self.__consultas
+    
+    def addConsulta(self, consulta):
+        self.consultas.append(consulta)
+
+    def infoMedico(self):
+        str = ""
+        for cons in self.consultas:
+            str += "{} / {} / {} \n".format(cons.dia,cons.hora,cons.nomePac)
+        return str
 
     
 class limiteInsMedico(tk.Toplevel):
@@ -80,10 +94,49 @@ class limiteInsMedico(tk.Toplevel):
 
     def mostraJanela(self, titulo, msg):
         messagebox.showinfo(titulo, msg)
+
+class LimiteListagemConsulta(tk.Toplevel):
+    def __init__(self, controle, listaNomes):
+
+        tk.Toplevel.__init__(self)
+        self.geometry('350x300')
+        self.title("Listagem de Consulta dos médicos")
+        self.controle = controle
+
+        self.frameMedico = tk.Frame(self)
+        self.frameConsultas = tk.Frame(self)
+        self.frameMedico.pack()
+        self.frameConsultas.pack(pady=3)
+
+        self.labelMedico = tk.Label(self.frameMedico,text="Escolha o médico: ")
+        self.labelMedico.pack(side="left")
+        self.escolhaCombo = tk.StringVar()
+        self.combobox = ttk.Combobox(self.frameMedico, width = 15 , values=listaNomes, textvariable = self.escolhaCombo)
+        self.combobox.pack(side="left")
+        self.combobox.bind("<<ComboboxSelected>>", self.controle.exibeConsultas)
+
+        self.textConsultas = tk.Text(self.frameConsultas, height=20, width=40)
+        self.textConsultas.pack(side='left')
+        self.textConsultas.config(state=tk.DISABLED)
+    
+    def mostraJanela(self, titulo, msg):
+        messagebox.showinfo(titulo, msg)
     
 class CtrlMedico:
     def __init__(self):
-        self.listaMedicos = []
+        if not os.path.isfile("medicos.pickle"):
+            self.listaMedicos = []
+        else:
+            try:
+                with open("medicos.pickle", "rb") as m:
+                    self.listaMedicos = pickle.load(m)
+            except EOFError as error:
+                self.listaMedicos = []
+
+    def salvaMedicos(self):
+        if len(self.listaMedicos) != 0:
+            with open("medicos.pickle", "wb") as m:
+                pickle.dump(self.listaMedicos, m)
 
     def getListaNomesMedicos(self):
         listNomes = []
@@ -107,6 +160,10 @@ class CtrlMedico:
     def cadastraMedico(self):
         self.limiteIns = limiteInsMedico(self)
 
+    def listagemConsulta(self):
+        listNomes = self.getListaNomesMedicos()
+        self.limiteCons = LimiteListagemConsulta(self, listNomes)
+
     def enterHandler(self, event):
         Nome = self.limiteIns.inputNome.get()
         CRM = self.limiteIns.inputCRM.get()
@@ -114,7 +171,7 @@ class CtrlMedico:
         try:
             medico = Medico(Nome, CRM, espc)
             self.listaMedicos.append(medico)
-            self.limiteIns.mostraJanela("Sucesso", "Medico cadastrado com sucesso!")
+            self.limiteIns.mostraJanela("Sucesso", "Médico cadastrado com sucesso!")
             self.clearHandler(event)
         except ValueError as error:
             self.limiteIns.mostraJanela("Erro", error)
@@ -126,3 +183,12 @@ class CtrlMedico:
 
     def fechaHandler(self, event):
         self.limiteIns.destroy()
+
+    def exibeConsultas(self, event):
+        medSel = self.limiteCons.combobox.get()
+        self.limiteCons.textConsultas.config(state='normal')
+        self.limiteCons.textConsultas.delete(1.0, tk.END)
+        for med in self.listaMedicos:
+            if med.nome == medSel:
+                self.limiteCons.textConsultas.insert(1.0, med.infoMedico() + "\n\n")
+        self.limiteCons.textConsultas.config(state='disabled')

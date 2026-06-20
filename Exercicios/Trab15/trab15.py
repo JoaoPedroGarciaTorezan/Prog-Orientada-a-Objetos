@@ -11,6 +11,7 @@ class LimitePrincipal():
         self.MedicoMenu = tk.Menu(self.menubar)
         self.ConsultaMenu = tk.Menu(self.menubar)
         self.PlaylistMenu = tk.Menu(self.menubar)
+        self.sairMenu = tk.Menu(self.menubar)
         
         self.MedicoMenu.add_command(label="Cadastrar", command=self.controle.cadastraMedico)
         self.MedicoMenu.add_command(label="Listar", command=self.controle.listagemConsulta)
@@ -19,6 +20,11 @@ class LimitePrincipal():
         self.ConsultaMenu.add_command(label="Cadastrar", command=self.controle.cadastraConsulta)
         self.menubar.add_cascade(label="Consulta", menu=self.ConsultaMenu)
         self.root.config(menu=self.menubar)
+
+        self.sairMenu.add_command(label="Salva", \
+                    command=self.controle.salvaDados)
+        self.menubar.add_cascade(label="Sair", \
+                    menu=self.sairMenu)
 
       
 class ControlePrincipal():       
@@ -43,6 +49,10 @@ class ControlePrincipal():
 
     def cadastraConsulta(self):
         self.ctrlConsulta.cadastraConsulta()
+    
+    def salvaDados(self):
+        self.ctrlMedico.salvaMedicos()
+        self.root.destroy()
 
     
 if __name__ == '__main__':

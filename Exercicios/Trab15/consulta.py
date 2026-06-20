@@ -11,7 +11,9 @@ class Consulta:
         self.dia = dia
         self.hora = hora
         self.__especialidade = especialidade
-        self.__medico = medico
+        self.medico = medico
+
+        medico.addConsulta(self)
 
     @property
     def nomePac(self):
@@ -46,13 +48,20 @@ class Consulta:
     @property
     def medico(self):
         return self.__medico
+    
+    @medico.setter
+    def medico(self, med):
+        for medi in med.consultas:
+            if self.dia == medi.dia and self.hora == medi.hora:
+                raise ValueError("Já existe consulta agendada nesta data, escolha outra")
+        self.__medico = med
 
     
 class limiteInsConsulta(tk.Toplevel):
     def __init__(self, controle):
 
         tk.Toplevel.__init__(self)
-        self.geometry('350x250')
+        self.geometry('350x300')
         self.title("Consulta")
         self.controle = controle
 
@@ -113,14 +122,26 @@ class limiteInsConsulta(tk.Toplevel):
     
 class CtrlConsulta:
     def __init__(self, controlePrincipal):
-        self.listaConsultas = []
         self.ctrlPrincipal = controlePrincipal
+        if not os.path.isfile("consultas.pickle"):
+            self.listaConsultas = []
+        else:
+            try:
+                with open("consultas.pickle", "rb") as m:
+                    self.listaConsultas = pickle.load(m)
+            except EOFError as error:
+                self.listaConsultas = []
+
+    def salvaConsultas(self):
+        if len(self.listaConsultas) != 0:
+            with open("consultas.pickle", "wb") as m:
+                pickle.dump(self.listaConsultas, m)
 
     def cadastraConsulta(self):
         self.limiteIns = limiteInsConsulta(self)
 
     def insereConsulta(self, event):
-        nomePac = self.limiteIns.inputNome.get()
+        nomePac = self.limiteIns.inputnomePac.get()
         dia = int(self.limiteIns.inputDia.get())
         hora = int(self.limiteIns.inputHora.get())
         espcSel = self.limiteIns.combobox.get()
@@ -131,21 +152,24 @@ class CtrlConsulta:
             consulta = Consulta(nomePac, dia, hora, especialidade, medico)
             self.listaConsultas.append(consulta)
             self.limiteIns.mostraJanela("Sucesso", "Consulta cadastrada com sucesso!")
+            self.salvaConsultas()
             self.clearHandler(event)
+            self.fechaHandler(event)
         except ValueError as error:
             self.limiteIns.mostraJanela("Erro", error)
 
     def clearHandler(self, event):
-        self.limiteIns.inputnomePac.delete(0, len(self.limiteIns.inputnomePac.get()))
+        self.limiteIns.inputnomePac.delete(0, tk.END)
+        self.limiteIns.inputDia.delete(0, tk.END)
+        self.limiteIns.inputHora.delete(0, tk.END)
 
     def fechaHandler(self, event):
         self.limiteIns.destroy()
 
     def exibeEspecialidade(self, event):
         espcSel = self.limiteIns.combobox.get()
-        especialidade = self.ctrlPrincipal.ctrlMedico.getEspecialidade(espcSel)
         listaMedicos = self.ctrlPrincipal.ctrlMedico.getListaMedicos()
         self.limiteIns.listbox.delete(0, tk.END)
         for med in listaMedicos:
-            if med.especialidade == especialidade:
+            if med.especialidade == espcSel:
                 self.limiteIns.listbox.insert(tk.END, med.nome)

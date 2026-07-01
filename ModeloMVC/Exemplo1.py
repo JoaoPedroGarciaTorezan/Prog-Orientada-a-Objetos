@@ -46,7 +46,7 @@ class View():
 
         self.button1 = tk.Button(self.janela, text="Botão 1")
         self.button1.pack(side='left')
-        self.button1.bind("<Button>", lambda e: controller.contagem(1))
+        self.button1.bind("<Button>", lambda e: controller.contagem(1)) # 
 
         self.button2 = tk.Button(self.janela, text="Botão 2")
         self.button2.pack(side='left')

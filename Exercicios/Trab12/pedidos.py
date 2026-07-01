@@ -115,13 +115,13 @@ class ctrlPedido():
 
 
     def inserePizza(self, event):
-        sel1 = self.limiteCad.combobox1.current()
-        sel2 = self.limiteCad.combobox2.current()
+        sel1 = self.limiteCad.combobox1.current() 
+        sel2 = self.limiteCad.combobox2.current() # ver se esta selecionado algum item no combobox, se não retorna -1
 
         pizz1 = None  # 
         pizz2 = None
 
-        if sel1 != -1:
+        if sel1 != -1: 
             pizzaSel1 = self.limiteCad.escolhaCombo1.get()
             pizz1 = self.ctrlPrincipal.ctrlPizza.getPizza(pizzaSel1)
             self.listaPizzaTemp.append(pizz1)
@@ -139,7 +139,7 @@ class ctrlPedido():
             pizzaComb = piz.Pizza('Comb', descricao, preco)
             self.listaPizzaTemp.append(pizzaComb)
 
-        self.limiteCad.combobox1.set('')
+        self.limiteCad.combobox1.set('') # setando o valor do combobox para vazio após a inclusão da pizza
         self.limiteCad.combobox2.set('')
 
         self.limiteCad.mostraJanela('Sucesso', 'Pizza incluída com sucesso')

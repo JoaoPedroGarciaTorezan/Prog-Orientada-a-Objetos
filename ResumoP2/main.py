@@ -1,6 +1,17 @@
 import tkinter as tk
-import medico as med
+import medico as med #passa os outros programas
 import consulta as cons
+
+#Observações:
+# Model - dados
+# View - interface do usuário
+# Frames - organização visual da interface, agrupando elementos relacionados.
+# Label - rótulos de texto para identificar campos ou fornecer informações.
+# Entry - campos de entrada de dados
+# Button - botões para acionar ações
+# Bind - vincula eventos (como cliques) a funções de callback
+# Controller - lógica de controle, manipula eventos e interage com o modelo e a view
+# root - janela principal da aplicação
 
 class LimitePrincipal():
     def __init__(self, root, controle):
@@ -31,7 +42,7 @@ class ControlePrincipal():
     def __init__(self):
         self.root = tk.Tk()
 
-        self.ctrlMedico = med.CtrlMedico() 
+        self.ctrlMedico = med.CtrlMedico() #passa o controle principal
 
         self.ctrlConsulta = cons.CtrlConsulta(self)
 
@@ -52,6 +63,7 @@ class ControlePrincipal():
     
     def salvaDados(self):
         self.ctrlMedico.salvaMedicos()
+        # pode colocar mais coisa para salvar
         self.root.destroy()
 
     

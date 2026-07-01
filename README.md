@@ -124,8 +124,11 @@ A pasta `Classes/` contém exemplos práticos dos principais pilares da POO:
     📄 trab14.py
     📄 trabalho14.zip
   📁 Trab15
+    📄 Trabalho15.zip
     📄 consulta.py
+    📄 consultas.pickle
     📄 medico.py
+    📄 medicos.pickle
     📄 trab15.py
 📁 Frações
   📄 XDES02_aula11.pdf
@@ -155,12 +158,14 @@ A pasta `Classes/` contém exemplos práticos dos principais pilares da POO:
   📄 Exemplo1.py
   📄 XDES02_aula14.pdf
   📄 aula14-ex1.py
+📄 consultas.pickle
 📄 cupomFiscals.pickle
 📄 diagrama.tex
 📄 disciplina.pickle
 📄 disciplina.piclke
 📄 estudante.pickle
 📄 jogos.pickle
+📄 medicos.pickle
 📄 produtos.pickle
 📄 turmas.pickle
 ```

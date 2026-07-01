@@ -158,6 +158,11 @@ A pasta `Classes/` contém exemplos práticos dos principais pilares da POO:
   📄 Exemplo1.py
   📄 XDES02_aula14.pdf
   📄 aula14-ex1.py
+📁 ResumoP2
+  📄 main.py
+  📄 progBase.py
+  📄 progaux.py
+  📄 programa1.py
 📄 consultas.pickle
 📄 cupomFiscals.pickle
 📄 diagrama.tex
